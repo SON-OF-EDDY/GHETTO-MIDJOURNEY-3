@@ -100,29 +100,29 @@ function passQueryToViews() {
             console.log('Received response:', response);
 
             // generate button renabled after image generation
-            generateButton.disabled = false;
+            //generateButton.disabled = false;
 
             // make lowerPortion visible after image generation
-            lowerPortion.style.display = "flex";
+            //lowerPortion.style.display = "flex";
 
             // create a new img element
-            var newImg = document.createElement('img');
+            //var newImg = document.createElement('img');
 
             // set the src attribute
-            newImg.src = response;
+            //newImg.src = response;
 
             // make the new image width and height smaller
-            newImg.width = 256;
-            newImg.height = 256;
+            //newImg.width = 256;
+            //newImg.height = 256;
 
             // append the new img element to the parent element
-            imageContainer.appendChild(newImg);
+            //imageContainer.appendChild(newImg);
 
             // set the value of the hidden input field "image-url" equal to the generated image url
-            inputFieldImageUrl.value = response;
+            //inputFieldImageUrl.value = response;
 
             // set the value of the hidden input field "prompts" equal to the textarea value
-            promptsUsed.value = query;
+            //promptsUsed.value = query;
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
