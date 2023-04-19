@@ -11,9 +11,10 @@ version = model.versions.get("db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c
 def process_query(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        query = data['query']
-        new_image_url = generate_image(query=query)[0]
-        json_data = json.dumps(new_image_url)
+        #query = data['query']
+        #new_image_url = generate_image(query=query)[0]
+        #json_data = json.dumps(new_image_url)
+        json_data='testing'
         return HttpResponse(json_data, content_type='application/json')
 
 def generate_image(query):
