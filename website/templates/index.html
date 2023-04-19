@@ -78,7 +78,6 @@ function passQueryToViews() {
 
     let query = queryBox.value;
     let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
-    console.log(csrftoken);
 
     if (query == "") {
       query = "A robot eating a taco in the desert at dawn. In the style of Van Gogh.";
@@ -112,8 +111,8 @@ function passQueryToViews() {
             newImg.src = response;
 
             // make the new image width and height smaller
-            newImg.width = 256;
-            newImg.height = 256;
+            newImg.width = 512;
+            newImg.height = 512;
 
             // append the new img element to the parent element
             imageContainer.appendChild(newImg);
