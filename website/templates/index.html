@@ -135,7 +135,7 @@ function passQueryToViews() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error('AJAX error:', textStatus, errorThrown);
-            loading.innerText = "AN ERROR OCCURRED. REFRESH YOUR BROWSER.";
+            location.reload();
         },
         });
 
