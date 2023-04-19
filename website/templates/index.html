@@ -22,7 +22,7 @@
     <textarea id="query" placeholder="A robot eating a taco in the desert at dawn. In the style of Van Gogh."></textarea>
     <br>
     <button class="button-28" id="generate">Generate Image</button>
-    <br><br>
+    <br>
 <p id="loading"></p>
 <br>
     <div id="img-container"></div>
@@ -135,7 +135,7 @@ function passQueryToViews() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error('AJAX error:', textStatus, errorThrown);
-            loading.innerText = "ERROR.REFRESH BROWSER";
+            loading.innerText = "ERROR. REFRESH BROWSER";
         },
         });
 
