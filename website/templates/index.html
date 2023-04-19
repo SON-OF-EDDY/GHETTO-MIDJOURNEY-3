@@ -1,0 +1,149 @@
+{% load static%}
+<html>
+<head>
+  <title>GHETTO MIDJOURNEY</title>
+  <link
+    rel="shortcut icon"
+    href="{%static 'images/midjourney.png'%}"
+  />
+  <link rel="stylesheet" type='text/css' href="{%static 'style.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press Start 2P"/>
+</head>
+
+<body>
+
+  <div id="main-container">
+
+    <h1>GHETTO MIDJOURNEY</h1>
+
+    <div id="upper-portion">
+      <h3>GENERATE IMAGE FROM TEXT</h3>
+
+    <textarea id="query" placeholder="A robot eating a taco in the desert at dawn. In the style of Van Gogh."></textarea>
+    <br>
+    <button class="button-28" id="generate">Generate Image</button>
+    <br><br>
+    <div id="img-container"></div>
+      <br>
+    </div>
+
+
+    <div id="lower-portion">
+      <h3>SHARE TO TELEGRAM</h3>
+
+    <a href="https://t.me/+jKvbEOsLHN05N2Vi">Join my group!</a>
+    <br>
+
+     <form method="POST" action="/">
+       {% csrf_token %}
+       <input type="text" id="user" name="user" placeholder="Enter your name." required><br>
+  <input type="text" id="msg" name="msg" placeholder="Message with image..." required><br>
+       <input type="text" id="prompts" name="prompts" hidden><br>
+       <input type="text" id="image-url" name="image-url" hidden>
+       <input id='submit' class="button-28" type="submit" value="Submit">
+    </form>
+    </div>
+  <h2 id="notice">{{result}}</h2>
+  </div>
+</body>
+
+<!--So I can use ajax calls-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+
+//ajax call to views.py
+
+let queryBox = document.getElementById("query")
+let generateButton = document.getElementById("generate")
+let imageContainer = document.getElementById("img-container")
+let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
+let lowerPortion = document.getElementById("lower-portion")
+let inputFieldImageUrl = document.getElementById("image-url")
+let promptsUsed = document.getElementById("prompts")
+
+generateButton.addEventListener('click',passQueryToViews)
+
+function passQueryToViews() {
+
+    //disable generate button while image generation is underway
+    generateButton.disabled = true;
+
+    //make lower portion invisible
+    lowerPortion.style.display = "none";
+
+    //clear out old contents of imageContainer
+    imageContainer.innerHTML = ""
+
+    let query = queryBox.value;
+
+    if (query == "") {
+      query = "A robot eating a taco in the desert at dawn. In the style of Van Gogh.";
+    }
+
+    $.ajax({
+        url: '/process_query/',
+        timeout: 20000,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRFToken": csrftoken
+        },
+        data: JSON.stringify({
+            query: query,
+        }),
+        success: function (response) {
+
+            console.log('Received response:', response);
+
+            // generate button renabled after image generation
+            generateButton.disabled = false;
+
+            // make lowerPortion visible after image generation
+            lowerPortion.style.display = "flex";
+
+            // create a new img element
+            var newImg = document.createElement('img');
+
+            // set the src attribute
+            newImg.src = response;
+
+            // make the new image width and height smaller
+            newImg.width = 256;
+            newImg.height = 256;
+
+            // append the new img element to the parent element
+            imageContainer.appendChild(newImg);
+
+            // set the value of the hidden input field "image-url" equal to the generated image url
+            inputFieldImageUrl.value = response;
+
+            // set the value of the hidden input field "prompts" equal to the textarea value
+            promptsUsed.value = query;
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error('AJAX error:', textStatus, errorThrown);
+        },
+        });
+
+}
+
+
+// Displaying result of message sending
+
+let notice = document.getElementById('notice')
+
+function clearNotice () {
+  notice.innerHTML = ""
+}
+
+setTimeout(function(){
+  clearNotice()
+}, 3000);
+
+
+</script>
+
+</html>
