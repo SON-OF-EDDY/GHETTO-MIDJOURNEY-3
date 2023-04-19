@@ -58,7 +58,7 @@
 let queryBox = document.getElementById("query")
 let generateButton = document.getElementById("generate")
 let imageContainer = document.getElementById("img-container")
-let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
+
 let lowerPortion = document.getElementById("lower-portion")
 let inputFieldImageUrl = document.getElementById("image-url")
 let promptsUsed = document.getElementById("prompts")
@@ -77,6 +77,7 @@ function passQueryToViews() {
     imageContainer.innerHTML = ""
 
     let query = queryBox.value;
+    let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
 
     if (query == "") {
       query = "A robot eating a taco in the desert at dawn. In the style of Van Gogh.";
@@ -88,7 +89,7 @@ function passQueryToViews() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "X-CSRFToken": csrftoken
+            "X-CSRFToken": csrftoken,
         },
         data: JSON.stringify({
             query: query,
