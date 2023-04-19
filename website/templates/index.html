@@ -23,7 +23,9 @@
     <br>
     <button class="button-28" id="generate">Generate Image</button>
     <br><br>
-    <div id="img-container"></div>
+    <div id="img-container">
+      <p id="loading"></p>
+    </div>
       <br>
     </div>
 
@@ -62,6 +64,7 @@ let imageContainer = document.getElementById("img-container")
 let lowerPortion = document.getElementById("lower-portion")
 let inputFieldImageUrl = document.getElementById("image-url")
 let promptsUsed = document.getElementById("prompts")
+let loading = document.getElementById("loading")
 
 generateButton.addEventListener('click',passQueryToViews)
 
@@ -75,7 +78,9 @@ function passQueryToViews() {
 
     //clear out old contents of imageContainer
     imageContainer.innerHTML = ""
-    imageContainer.innerText = "LOADING,PLEASE WAIT..."
+
+    //display loading message
+    loading.innerHTML = "LOADING, PLEASE WAIT..."
 
     let query = queryBox.value;
     let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
@@ -119,7 +124,7 @@ function passQueryToViews() {
             imageContainer.appendChild(newImg);
 
             //delete loading message
-            imageContainer.innerText = ""
+            loading.innerHTML = ""
 
             // set the value of the hidden input field "image-url" equal to the generated image url
             inputFieldImageUrl.value = response;
@@ -130,6 +135,7 @@ function passQueryToViews() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error('AJAX error:', textStatus, errorThrown);
+            loading.innerText = "AN ERROR OCCURRED. REFRESH YOUR BROWSER."
         },
         });
 
