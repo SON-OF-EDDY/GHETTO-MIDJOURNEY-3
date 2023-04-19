@@ -75,6 +75,7 @@ function passQueryToViews() {
 
     //clear out old contents of imageContainer
     imageContainer.innerHTML = ""
+    imageContainer.innerText = "LOADING,PLEASE WAIT..."
 
     let query = queryBox.value;
     let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
@@ -116,6 +117,9 @@ function passQueryToViews() {
 
             // append the new img element to the parent element
             imageContainer.appendChild(newImg);
+
+            //delete loading message
+            imageContainer.innerText = ""
 
             // set the value of the hidden input field "image-url" equal to the generated image url
             inputFieldImageUrl.value = response;

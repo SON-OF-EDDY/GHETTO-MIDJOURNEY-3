@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+#image-container {
+    font-family: monospace, sans-serif;
+    font-size:4vw;
+}
+
 #upper-portion{
   width:100%;
   display: flex;
@@ -112,5 +117,5 @@ textarea {
 }
 
 a {
-font-size:4vw;
+    font-size:4vw;
 }
