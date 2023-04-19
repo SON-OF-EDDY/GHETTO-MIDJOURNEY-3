@@ -78,6 +78,7 @@ function passQueryToViews() {
 
     let query = queryBox.value;
     let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val()
+    console.log(csrftoken);
 
     if (query == "") {
       query = "A robot eating a taco in the desert at dawn. In the style of Van Gogh.";
